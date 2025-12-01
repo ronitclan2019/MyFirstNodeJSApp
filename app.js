@@ -1,11 +1,36 @@
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 8080;
+const express = require('express')
+const app = express()
+const logger = require('morgan')
+
+
+app.use(logger('dev'))
 
 app.get('/', (req, res) => {
-  res.send('Hello from Elastic Beanstalk!');
-});
+    res.status(200)
+    res.send('Working...')
+})
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.get('/pizzas', (req, res) => {
+    res.status(200)
+    res.json({
+        pizzas: [
+            {
+                type: 'pepperoni', 
+                size: 'large'
+            },
+            {
+                type: 'meat lovers',
+                size: 'xlarge'
+            },
+            {
+                type: 'buffalo chicken',
+                size: 'medium'
+            }
+        ]
+    })
+})
+
+
+
+
+module.exports = app
